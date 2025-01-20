@@ -3,7 +3,8 @@ import {   completeUserProfile,
     updateUserProfile,
     getUserProfile,signup, 
     bookAppointment,
-    fetchAppointment} from '../controllers/user.controller.js';
+    fetchAppointment,
+    fetchAppointments} from '../controllers/user.controller.js';
 import { protectRoute } from '../middleware/auth.middleware.js'; 
 import upload from '../lib/multer.js';
 const router = express.Router();
@@ -23,4 +24,5 @@ router.get('/profile', protectRoute, getUserProfile);
 
 router.post('/book-appointment', protectRoute, bookAppointment);
 router.get('/booked-appointment', protectRoute,fetchAppointment)
+router.get('/appointment', protectRoute,fetchAppointments)
 export default router;
