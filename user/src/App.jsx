@@ -14,6 +14,7 @@ import Triage from "./pages/Triage/Triage";
 import Admin from "./pages/Admin/Admin";
 import Form from "./pages/Form/Form";
 import Booking from "./pages/Form/Booking";
+import ChatPage from "./pages/ChatPage/ChatPage";
 
 function App() {
   return (
@@ -36,6 +37,8 @@ function App() {
         <Route path="/admin" element={<Admin />} />
         <Route path="/form" element={<Form />} />
         <Route path="/book" element={<Booking />} />
+        <Route path="/chat" element={<ChatPage />} />
+      
       </Routes>
     
   );

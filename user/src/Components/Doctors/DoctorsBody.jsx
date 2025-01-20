@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import appointmentsIcon from "../../assets/icons/appointments.png";
 import patientsIcon from "../../assets/icons/patients.png";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function DoctorBody() {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Appointments");
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -314,6 +316,8 @@ export default function DoctorBody() {
         return renderAppointments();
       case "Patients":
         return renderPatientDetails();
+      case "Chat":
+        return(navigate('/chat'));
       default:
         return <div>Select an option from the sidebar.</div>;
     }

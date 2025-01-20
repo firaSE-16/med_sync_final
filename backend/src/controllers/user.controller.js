@@ -11,6 +11,7 @@ import Admin from "../models/admin.model.js";
 import { generateToken } from "../lib/utils.js";
 import path from 'path'; 
 import  upload  from '../lib/multer.js'; // Ensure multer's upload configuration is correctly imported
+import Appointment from '../models/appointment.model.js';
 const handleError = (res, error) => res.status(500).json({ error: error.message });
 
 
@@ -228,7 +229,7 @@ export const signup = async (req, res) => {
   };
 
 
- 
+
 export const fetchAppointment = async (req, res) => {
   try {
     // Get the logged-in user's ID
@@ -249,6 +250,28 @@ export const fetchAppointment = async (req, res) => {
       appointments,
     });
   } catch (error) {
+    console.error("Error fetching appointments:", error.message);
+    res.status(500).json({ error: "An error occurred while fetching appointments." });
+  }
+};
+
+export const fetchAppointments = async (req, res) => {
+  try {
+    const userId = req.user.id; // Assuming `req.user` is available
+    const appointment = await Appointment.find({ patientId: userId })
+      .populate("doctorId", "name specialty") // Populate doctor details
+      .sort({ date: 1, time: 1 }); // Sort appointments
+
+    if (!appointment.length) {
+      return res.status(404).json({ message: "No appointments found." });
+    }
+
+    res.status(200).json({
+      message: "Appointments fetched successfully.",
+      appointment,
+    });
+  } catch (error) {
+    console.log(error);
     console.error("Error fetching appointments:", error.message);
     res.status(500).json({ error: "An error occurred while fetching appointments." });
   }
